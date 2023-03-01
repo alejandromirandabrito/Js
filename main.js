@@ -48,7 +48,7 @@ if(login()){
             alert("Elegiste una opción inválida");
             break;
     }
-
+    opcion = prompt( "Elije una opción: \n1 - Saldo. \n2 - Retiro de dinero. \n3 - Depósito. \n Presione X para salir.");
    }
     }else{
     alert("Tu tarjeta ha sido bloqueada por seguridad");
