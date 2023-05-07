@@ -1,87 +1,57 @@
-//Carga de productos por parte del admin//
+let miClave = "0309";
 
-class Producto{
-    constructor ( nombre, precio , stock ){
-        this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
-    }
+function login (){
 
-    get_datos(){
-        console.log("");
-        console.log(" Nombre: ", this.nombre);
-        console.log(" Precio: ", this.precio);
-        console.log(" Stock: ", this.stock);
-        console.log("");
-    }
+    let ingresar = false;
+    for(let i = 2; i >= 0; i --){  
 
-    venta_stock(cantidad){
-        //CHEQUEO DE LAS UNIDADES SEAN MENOR A LA CANTIDAD DE STOCK//
-        if ( this.stock >= cantidad){
-            this.stock = this.stock - cantidad
-            return true
-        }
-        else{
-            return false
+        let claveUsuario = prompt( " Ingresa tu Clave. Tienes " + (i + 1) + " oportunidades " );
+        if (claveUsuario === miClave) {
+            alert("Ingreso exitoso. Bienvenido/a");
+            ingresar = true;
+            break;
+        }else{
+            alert("Has ingresado una clave incorrecta. Te quedan " + i + " intentos. " )
         }
     }
-
+    return ingresar;
 }
+if(login()){
+   let saldo = 500000;
+   
+   let opcion = prompt( "Elije una opción: \n1 - Saldo. \n2 - Retiro de dinero. \n3 - Depósito. \n Presione X para salir.");
 
+   while(opcion != "X" && opcion != "x"){
 
-//Alta de productos (parte del admin)//
-
-let lista_productos = [];
-
-for(let i = 0 ; i < 3 ; i = i + 1){
-
-    let nombre = prompt(" MENU DE ADMINISTRADOR \n Ingrese el nombre del producto");
-    let precio = parseInt( prompt (" MENU DE ADMINISTRADOR \n  Ingrese el precio el producto"));
-    let stock =  parseInt( prompt (" MENU DE ADMINISTRADOR \n  Ingrese el stock del producto"));
-
-    let producto = new Producto( nombre, precio, stock);
-
-    lista_productos.push(producto);
-
-    
-}
-
-console.log( lista_productos );
-
-//Fin del alta de productos//
-
-console.log("Lista de productos");
-
-for( let producto of lista_productos){
-    producto.get_datos();
-}
-
-//SIMULO COMPRA DE USUARIO//
-
-function buscar_producto( producto ){
-
-    return producto.nombre == compra_usuario;
-
-}
-
-let compra_usuario = prompt(" MENU DE CLIENTE \n  Ingrese el nombre del producto que desea comprar");
-
-let resultado_busqueda = lista_productos.find( buscar_producto )
-
-if (resultado_busqueda != undefined ){
-    console.log(resultado_busqueda);
-
-    let unidades =  parseInt( prompt(" MENU DE CLIENTE \n ¿Cuantas unidades queres?"));
-
-    if ( resultado_busqueda.venta_stock( unidades)){
-        console.log(`MENU DE CLIENTE \n Gracias por comprar ${unidades} unidades de ${resultado_busqueda.nombre}`);
+    switch(opcion){
+        case "1":
+            alert( " Su saldo es $ " + saldo);
+            break;
+        case "2":
+            let retiro = parseFloat(prompt("Ingresa el monto a retirar"));
+            if (retiro <= saldo){
+                saldo = saldo - retiro;
+                alert("Retiro exitoso. Tu nuevo saldo es $ " + saldo );
+            }else {
+                alert( " Fondos insuficientes. " )
+            }
+            break;
+        case "3":
+            let deposito = parseFloat(prompt("Ingrese el monto a depositar"));
+            if (deposito){
+                saldo = saldo + deposito 
+                alert("Deposito exitoso");
+            }
+            break;
+        default:
+            alert("Elegiste una opción inválida");
+            break;
     }
-    else{
-        console.log(" MENU DE CLIENTE \n No se pudo realizar la compra, no tenemos stock suficiente");
-        console.log(" MENU DE CLIENTE \n Stock disponible: ", resultado_busqueda.stock );
-        
-    }
+    opcion = prompt( "Elije una opción: \n1 - Saldo. \n2 - Retiro de dinero. \n3 - Depósito. \n Presione X para salir.");
+   }
+    }else{
+    alert("Tu tarjeta ha sido bloqueada por seguridad");
+
 }
-else{
-    console.log(" MENU DE CLIENTE \n No se encontro el producto", compra_usuario);
-}
+
+alert("Adios");
